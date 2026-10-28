@@ -29,6 +29,12 @@ needs, and keep individual components useful on their own.
 The independent adon repository remains available. Its MIT license and commit
 history are preserved in the `packages/tmux-agent-adon` subtree. A clean clone of
 this repository contains the component directly; no submodule is required.
+The two repositories do not synchronize automatically. To bring a later
+standalone adon release into this repository, review it and run:
+
+```sh
+git subtree pull --prefix=packages/tmux-agent-adon https://github.com/toyauro/tmux-agent-adon.git main
+```
 
 ## Try the status lights
 
@@ -39,10 +45,17 @@ export PATH="$PWD/packages/tmux-agent-adon/bin:$PATH"
 tmux run-shell "$PWD/packages/tmux-agent-adon/agent-adon.tmux"
 ```
 
-Loading the plugin registers format fragments. To display them in the current
-window, follow the [installation and display guide](packages/tmux-agent-adon/README.md#quick-start).
-It describes how to integrate with an existing theme rather than replacing it.
-The plugin can be used independently of the future fleet features.
+Loading the plugin registers format fragments. To try the bundled label in the
+current window:
+
+```sh
+tmux set-option -w pane-border-status top
+tmux set-option -w pane-border-format '#{E:@agent_adon_label_format}'
+```
+
+This changes the current window's border format. To keep an existing theme,
+follow the [display integration guide](packages/tmux-agent-adon/examples/README.md)
+instead. The plugin can be used independently of the future fleet features.
 
 ## Current boundaries
 

@@ -22,6 +22,12 @@ ToyaUro Fleet 让跨设备的独立 Agent 与现有工具协作：手机运行�
 
 独立 adon 仓库继续保留；其 MIT 许可证和提交历史保留在 `packages/tmux-agent-adon` 子树中。克隆本仓库即可获得组件源码，不需要初始化 Git submodule。
 
+两个仓库不会自动同步。需要导入独立 adon 仓库的后续版本时，可先审阅变更，再执行：
+
+```sh
+git subtree pull --prefix=packages/tmux-agent-adon https://github.com/toyauro/tmux-agent-adon.git main
+```
+
 ## 试用状态灯
 
 克隆本仓库后，在目标 tmux server 的 shell 中执行：
@@ -31,7 +37,14 @@ export PATH="$PWD/packages/tmux-agent-adon/bin:$PATH"
 tmux run-shell "$PWD/packages/tmux-agent-adon/agent-adon.tmux"
 ```
 
-加载插件会注册显示格式。要在当前窗口显示灯，请继续查看[安装与显示指南](packages/tmux-agent-adon/README.zh-CN.md#快速开始)，其中也说明了如何保留已有主题。插件可以独立于未来的 fleet 通信使用。
+加载插件会注册显示格式。要在当前窗口试用内置标签：
+
+```sh
+tmux set-option -w pane-border-status top
+tmux set-option -w pane-border-format '#{E:@agent_adon_label_format}'
+```
+
+这会更改当前窗口的边框格式。如需保留已有主题，请参照[显示集成指南](packages/tmux-agent-adon/examples/README.md)。插件可以独立于未来的 fleet 通信使用。
 
 ## 当前边界
 
